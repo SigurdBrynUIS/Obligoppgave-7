@@ -1,6 +1,24 @@
 import csv
 from datetime import datetime
 
+def brukerinput():
+        #godkjente input av data er årstall fra 2014 - 2025(2026 er ikke fullstending)
+        #Her er det nok mulig å kode inn begrensning direkte fra filen - men jeg hardkoder denne. Det er lettere ;-)
+    while True:
+        try: 
+            år = int(input("Skriv inn ett gyldig årstall: (2014-2025) "))
+                
+            if 2014 <= år <= 2025:
+                print(f"Viser data for årstall: {år} ")
+                break
+            else:
+                print("Du har ikke valgt ett gyldig årstall!")
+                continue
+
+        except ValueError:
+            print("prøv på nytt")
+
+    return år
 
 def les_csv(filnavn):
     data = []
@@ -47,6 +65,6 @@ def antall_per_år(data, år):
     print(f"Høysommerdager (>25°C): {høysommer}")
     print(f"Tropedager (>30°C): {trope}")
 
-
+valgt_år = brukerinput()
 data = les_csv("sinnes_2014_2025_med_makstemperatur.csv")
-antall_per_år(data, 2025)
+antall_per_år(data, valgt_år)
