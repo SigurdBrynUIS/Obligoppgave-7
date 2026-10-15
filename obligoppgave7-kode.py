@@ -43,7 +43,7 @@ fil = "sinnes_2014_2025.csv" #  kan vi bytte til den andre fila
 
 data = les_csv(fil)
 
-def skifore(data, svar):
+def skiføre(data, svar):
     antall_skidager = 0
 
     for d in data:
@@ -83,5 +83,5 @@ def plotting(svar):
     plt.show()
 
 svar = brukerinput()
-skifore(data, svar)
+skiføre(data, svar)
 plotting(svar)
