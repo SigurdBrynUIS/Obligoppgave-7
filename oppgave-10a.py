@@ -13,11 +13,11 @@ def les_csv(filnavn):
             try:
                 dato = datetime.strptime(rad[2], "%d.%m.%Y")
                 temp = float(rad[3].replace(",", "."))
-                nedbor = float(rad[4].replace(",", "."))
+                nedbør = float(rad[4].replace(",", "."))
                 vind = float(rad[5].replace(",", "."))
-                sno = float(rad[6].replace(",", "."))
+                snø = float(rad[6].replace(",", "."))
 
-                data.append((dato, temp, nedbor, vind, sno))
+                data.append((dato, temp, nedbør, vind, snø))
 
             except:
                 continue
@@ -29,50 +29,50 @@ fil = "sinnes_2014_2025.csv"
 data = les_csv(fil)
 
 # grupper etter måned
-maneder = {}
+måneder = {}
 
-for dato, temp, nedbor, vind, sno in data:
+for dato, temp, nedbør, vind, snø in data:
 
     nøkkel = (dato.year, dato.month)
 
-    if nøkkel not in maneder:
-        maneder[nøkkel] = {
+    if nøkkel not in måneder:
+        måneder[nøkkel] = {
             "temp": [],
-            "nedbor": [],
+            "nedbør": [],
             "vind": [],
-            "sno": []
+            "snø": []
         }
 
-    maneder[nøkkel]["temp"].append(temp)
-    maneder[nøkkel]["nedbor"].append(nedbor)
-    maneder[nøkkel]["vind"].append(vind)
-    maneder[nøkkel]["sno"].append(sno)
+    måneder[nøkkel]["temp"].append(temp)
+    måneder[nøkkel]["nedbør"].append(nedbør)
+    måneder[nøkkel]["vind"].append(vind)
+    måneder[nøkkel]["snø"].append(snø)
 
 
 dato_liste = []
-maks_sno_liste = []
-total_nedbor_liste = []
+maks_snø_liste = []
+total_nedbør_liste = []
 maks_temp_liste = []
 min_temp_liste = []
 maks_vind_liste = []
 
-for nøkkel in sorted(maneder):
+for nøkkel in sorted(måneder):
 
     år, måned = nøkkel
 
-    temp = maneder[nøkkel]["temp"]
-    nedbor = maneder[nøkkel]["nedbor"]
-    vind = maneder[nøkkel]["vind"]
-    sno = maneder[nøkkel]["sno"]
+    temp = måneder[nøkkel]["temp"]
+    nedbør = måneder[nøkkel]["nedbør"]
+    vind = måneder[nøkkel]["vind"]
+    snø = måneder[nøkkel]["snø"]
 
     dato_liste.append(datetime(år, måned, 1))
 
-    maks_sno_liste.append(max(sno))
+    maks_snø_liste.append(max(snø))
 
-    if len(nedbor) > 20:
-        total_nedbor_liste.append(sum(nedbor))
+    if len(nedbør) > 20:
+        total_nedbør_liste.append(sum(nedbør))
     else:
-        total_nedbor_liste.append(None)
+        total_nedbør_liste.append(None)
 
     maks_temp_liste.append(max(temp))
     min_temp_liste.append(min(temp))
@@ -81,8 +81,8 @@ for nøkkel in sorted(maneder):
 
 plt.figure(figsize=(12, 6))
 
-plt.plot(dato_liste, maks_sno_liste, label="Maks snødybde")
-plt.plot(dato_liste, total_nedbor_liste, label="Total nedbør")
+plt.plot(dato_liste, maks_snø_liste, label="Maks snødybde")
+plt.plot(dato_liste, total_nedbør_liste, label="Total nedbør")
 plt.plot(dato_liste, maks_temp_liste, label="Maks middeltemperatur")
 plt.plot(dato_liste, min_temp_liste, label="Min middeltemperatur")
 plt.plot(dato_liste, maks_vind_liste, label="Maks middelvind")
